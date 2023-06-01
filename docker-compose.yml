@@ -18,7 +18,7 @@ services:
       - app
 
   server:
-    image: ghcr.io/silenc3502/backend-server:latest
+    image: ghcr.io/namhyunki/kdt1-study-3-team4-back:latest
     build: .
     container_name: backend-deploy-test-server
     volumes:
