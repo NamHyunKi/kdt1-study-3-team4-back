@@ -85,7 +85,7 @@ jobs:
             
             docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GHCR_TOKEN }}
             
-            docker pull ghcr.io/NamHyunKi/kdt1-study-3-team4-back:latest
+            docker pull ghcr.io/namhyunki/kdt1-study-3-team4-back:latest
             
             docker image prune -f
             docker logout
