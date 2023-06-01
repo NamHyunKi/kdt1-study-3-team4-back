@@ -6,9 +6,9 @@ on:
       - main
       
 env:
-  DOCKER_IMAGE: ghcr.io/${{ github.actor }}/kdt1-study-3-team4-back
+  DOCKER_IMAGE: ghcr.io/${{ github.actor }}/backend-server
   VERSION: ${{ github.sha }}
-  NAME: kdt1-study-3-team4-back
+  NAME: backend-server
   
 jobs:
   build:
@@ -41,7 +41,7 @@ jobs:
         run: |
             docker login ghcr.io -s ${{ github.actor }} -p ${{ secrets.GHCR_TOKEN }}
             docker buildx create --name arm64builder --use
-            docker buildx build -- platform linux/amd64,linux/arm64 -f Dockerfile -t ghcr.io/adamwor/backend-server:latest --push .
+            docker buildx build -- platform linux/amd64,linux/arm64 -f Dockerfile -t ghcr.io/silenc3502/backend-server:latest --push .
             docker logout
       
       
@@ -75,14 +75,14 @@ jobs:
             fi
             echo "pass mysql-container"
             
-            if [[ "$(docker ps -qa --filter ancestor=backend-deploy-test/backend-deploy-test-server:latest)" ]]; then
+            if [[ "$(docker ps -qa --filterancestor=backend-deploy-test/backend-deploy-test-server:latest)" ]]; then
               docker rm -f $(docker pas -qa --filter ancestor=backend-deploy-test/backend-deploy-test-server:latest)
             fi
             echo "pass backend-deploy-test/backend-deploy-test-server:latest"
             
             docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GHCR_TOKEN }}
             
-            docker pull ghcr.io/adamwor/kdt1-study-3-team4-back:latest
+            docker pull ghcr.io/silenc3502/backend-server:latest
             
             docker image prune -f
             docker logout
