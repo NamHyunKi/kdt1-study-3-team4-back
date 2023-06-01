@@ -6,9 +6,9 @@ on:
       - main
       
 env:
-  DOCKER_IMAGE: ghcr.io/${{ github.actor }}/backend-server
+  DOCKER_IMAGE: ghcr.io/${{ github.actor }}/kdt1-study-3-team4-back
   VERSION: ${{ github.sha }}
-  NAME: backend-server
+  NAME: kdt1-study-3-team4-back
   
 jobs:
   build:
@@ -75,14 +75,14 @@ jobs:
             fi
             echo "pass mysql-container"
             
-            if [[ "$(docker ps -qa --filterancestor=backend-deploy-test/backend-deploy-test-server:latest)" ]]; then
-              docker rm -f $(docker pas -qa --filter ancestor=backend-deploy-test/backend-deploy-test-server:latest)
+            if [[ "$(docker ps -qa --filter ancestor=adamwor/kdt1-study-3-team4-back:latest)" ]]; then
+              docker rm -f $(docker pas -qa --filter ancestor=adamwor/kdt1-study-3-team4-back:latest)
             fi
-            echo "pass backend-deploy-test/backend-deploy-test-server:latest"
+            echo "pass adamwor/kdt1-study-3-team4-back:latest"
             
             docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GHCR_TOKEN }}
             
-            docker pull ghcr.io/adamwor/backend-server:latest
+            docker pull ghcr.io/adamwor/kdt1-study-3-team4-back:latest:latest
             
             docker image prune -f
             docker logout
