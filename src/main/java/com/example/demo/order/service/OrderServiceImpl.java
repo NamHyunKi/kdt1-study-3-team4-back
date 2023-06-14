@@ -7,6 +7,7 @@ import com.example.demo.Account.repository.AccountRepository;
 import com.example.demo.Account.repository.AccountRoleRepository;
 import com.example.demo.Account.repository.UserTokenRepository;
 import com.example.demo.Account.repository.UserTokenRepositoryImpl;
+import com.example.demo.authentication.redis.RedisService;
 import com.example.demo.order.dto.OrderDTO;
 import com.example.demo.order.entity.Order;
 import com.example.demo.order.repository.OrderRepository;
@@ -36,12 +37,15 @@ public class OrderServiceImpl implements OrderService {
     final private AccountRepository accountRepository;
     final private ProductRepository productRepository;
     final private AccountRoleRepository accountRoleRepository;
+//    final private RedisService redisService;
     final private UserTokenRepository userTokenRepository = UserTokenRepositoryImpl.getInstance();
     @Transactional
     @Override
     public List<OrderDTO> list(String userToken) {
         Long accountId = userTokenRepository.findAccountIdByToken(userToken);
+//        Long accountId = redisService.getValueByKey(userToken);
         log.info(accountId.toString());
+
         Optional<Account> account = accountRepository.findById(accountId);
         if (account.isEmpty()) {
             log.info("정보가 없습니다!");

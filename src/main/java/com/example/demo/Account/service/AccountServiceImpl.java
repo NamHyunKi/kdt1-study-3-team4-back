@@ -8,6 +8,7 @@ import com.example.demo.Account.entity.RoleType;
 import com.example.demo.Account.repository.*;
 import com.example.demo.Account.service.request.AccountLoginRequest;
 import com.example.demo.Account.service.request.AccountRegisterRequest;
+import com.example.demo.authentication.redis.RedisService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,7 @@ public class AccountServiceImpl implements AccountService {
     final private AccountRepository accountRepository;
     final private AccountRoleRepository accountRoleRepository;
     final private RoleRepository roleRepository;
+//    final private RedisService redisService;
 
     final private UserTokenRepository userTokenRepository = UserTokenRepositoryImpl.getInstance();
 
@@ -57,7 +59,7 @@ public class AccountServiceImpl implements AccountService {
         if (account.getPassword().equals(request.getPassword())) {
             final String userToken = UUID.randomUUID().toString();
             userTokenRepository.save(userToken, account.getId());
-
+//            redisService.setKeyAndValue(userToken, account.getId());
             final Role role = accountRoleRepository.findRoleInfoByAccount(account);
             log.info(role.getRoleType().name());
 
@@ -69,6 +71,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public RoleType lookup(String accountToken) {
+//        final Long accountId = redisService.getValueByKey(accountToken);
         final Long accountId = userTokenRepository.findAccountIdByToken(accountToken);
         final Optional<Account> maybeAccount = accountRepository.findById(accountId);
 
@@ -86,6 +89,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Long findAccountId(String userToken) {
+//        return redisService.getValueByKey(userToken);
         return userTokenRepository.findAccountIdByToken(userToken);
     }
 

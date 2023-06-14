@@ -4,6 +4,7 @@ import com.example.demo.Account.entity.Account;
 import com.example.demo.Account.repository.AccountRepository;
 import com.example.demo.Account.repository.UserTokenRepository;
 import com.example.demo.Account.repository.UserTokenRepositoryImpl;
+import com.example.demo.authentication.redis.RedisService;
 import com.example.demo.product.dto.ProductDTO;
 import com.example.demo.product.entity.Product;
 import com.example.demo.product.entity.ProductImages;
@@ -35,12 +36,14 @@ public class ProductServiceImpl implements ProductService {
     final private UserTokenRepository userTokenRepository = UserTokenRepositoryImpl.getInstance();
     final private AccountRepository accountRepository;
     final private ImageRepository imageRepository;
+//    final private RedisService redisService;
 
     @Transactional
     @Override
     public Boolean register(RegisterRequestProductForm info, List<MultipartFile> fileList) {
         log.info("service.register()");
         log.info(info.getUserToken());
+//        Long maybeBusinessId = redisService.getValueByKey(info.getUserToken());
         Long maybeBusinessId = userTokenRepository.findAccountIdByToken(info.getUserToken());
         log.info(String.valueOf(maybeBusinessId));
 
