@@ -1,10 +1,12 @@
 package com.example.demo.Account.repository;
 
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 @NoArgsConstructor
 public class UserTokenRepositoryImpl implements UserTokenRepository {
 
@@ -18,6 +20,7 @@ public class UserTokenRepositoryImpl implements UserTokenRepository {
     @Override
     public void save(String userToken, Long id) {
         userTokenMap.put(userToken, id);
+        log.info(String.valueOf(userTokenMap));
     }
 
     @Override

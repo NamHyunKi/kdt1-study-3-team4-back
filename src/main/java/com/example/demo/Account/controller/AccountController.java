@@ -1,5 +1,6 @@
 package com.example.demo.Account.controller;
 
+import com.example.demo.Account.controller.form.AccountCheckEmailForm;
 import com.example.demo.Account.controller.form.AccountLoginRequestForm;
 import com.example.demo.Account.controller.form.AccountLoginResponseForm;
 import com.example.demo.Account.controller.form.AccountRegisterRequestForm;
@@ -27,5 +28,10 @@ public class AccountController {
     @PostMapping("/login")
     public AccountLoginResponseForm accountLogin (@RequestBody AccountLoginRequestForm requestForm) {
         return accountService.login(requestForm.toAccountLoginRequest());
+    }
+
+    @PostMapping("check-email")
+    public Boolean checkEmail(@RequestBody AccountCheckEmailForm checkEmailForm){
+        return accountService.check(checkEmailForm);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.demo.Account.service;
 
+import com.example.demo.Account.controller.form.AccountCheckEmailForm;
 import com.example.demo.Account.controller.form.AccountLoginResponseForm;
 import com.example.demo.Account.entity.RoleType;
 import com.example.demo.Account.service.request.AccountLoginRequest;
@@ -13,4 +14,6 @@ public interface AccountService {
     RoleType lookup(String accountToken);
 
     Long findAccountId(String accountToken);
+
+    Boolean check(AccountCheckEmailForm checkEmailForm);
 }
